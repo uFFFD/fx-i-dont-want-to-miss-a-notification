@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/.
+   -
+   - Copyright (c) 2015 uFFFD
+   -
+   - Alternatively, the contents of this file may be used under the terms
+   - of the GNU General Public License Version 3+, as described below:
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU General Public License as published by
+   - the Free Software Foundation, either version 3 of the License, or
+   - (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU General Public License for more details.
+   -
+   - You should have received a copy of the GNU General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!--
+original source:
+http://mxr.mozilla.org/mozilla-central/source/toolkit/components/alerts/resources/content/alert.xul
+chrome://global/content/alerts/alert.xul
+-->
+
+<!DOCTYPE window [
+<!ENTITY % alertDTD SYSTEM "chrome://alerts/locale/alert.dtd">
+%alertDTD;
+]>
+
+<?xml-stylesheet href="chrome://idwtman/content/alerts/alert.css" type="text/css"?>
+<?xml-stylesheet href="chrome://global/skin/alerts/alert.css" type="text/css"?>
+<?xml-stylesheet href="chrome://idwtman/skin/alerts/alert-ani.css" type="text/css"?>
+
+<window id="alertNotification"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        windowtype="alert:alert"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xhtml:role="alert"
+        pack="start"
+        onload="onAlertLoad();"
+        onclick="onAlertClick();"
+        onbeforeunload="onAlertBeforeUnload();">
+
+  <script type="application/javascript" src="chrome://idwtman/content/alerts/alert.js"/>
+
+  <box id="alertBox" class="alertBox">
+    <box>
+      <hbox id="alertImageBox" class="alertImageBox" align="center" pack="center">
+        <image id="alertImage"/>
+      </hbox>
+
+      <vbox id="alertTextBox" class="alertTextBox">
+        <label id="alertTitleLabel" class="alertTitle plain"/>
+        <label id="alertTextLabel" class="alertText plain"/>
+      </vbox>
+    </box>
+
+    <vbox class="alertCloseBox">
+      <toolbarbutton class="alertCloseButton close-icon"
+                     tooltiptext="&closeAlert.tooltip;"
+                     onclick="event.stopPropagation();"
+                     oncommand="close();"/>
+    </vbox>
+  </box>
+
+  <!-- This method is called inline because we want to make sure we establish the width
+       and height of the alert before we fire the onload handler. -->
+  <script type="application/javascript">prefillAlertInfo();</script>
+</window>
+

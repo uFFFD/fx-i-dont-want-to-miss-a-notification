@@ -1,0 +1,4 @@
+content  idwtman  content/
+skin     idwtman  classic/1.0  skin/
+override  chrome://global/content/alerts/alert.xul  chrome://idwtman/content/alerts/alert.xul
+override  chrome://idwtman/skin/alerts/alert-ani.css  chrome://idwtman/skin/alerts/alert-ani-linux.css  os=Linux

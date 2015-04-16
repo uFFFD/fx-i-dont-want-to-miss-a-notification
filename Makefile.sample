@@ -1,0 +1,33 @@
+FIREFOX = firefox
+BINARY = path/to/release/$(FIREFOX)
+BETA = path/to/beta/$(FIREFOX)
+AURORA = path/to/aurora/$(FIREFOX)
+NIGHTLY = path/to/nightly/$(FIREFOX)
+
+XPI = idwtman@uFFFD.xpi
+
+NOSLIDING = false
+LOCALE = en-US
+E10S = false
+ARGS = --addon $(XPI) --preferences user.json --app-arg "-jsconsole" \
+  --pref "alerts.disableSlidingEffect:$(NOSLIDING)" \
+  --pref "general.useragent.locale:$(LOCALE)" \
+  --pref "browser.tabs.remote.autostart:$(E10S)"
+
+xpi:
+	python xpi.py $(XPI) install.rdf chrome.manifest bootstrap.js options.xul icon.png COPYING content/* skin/*
+
+run: xpi
+	mozrunner $(ARGS) --binary $(BINARY)
+
+beta: BINARY = $(BETA)
+beta: run
+
+aurora: BINARY = $(AURORA)
+aurora: run
+
+nightly: BINARY = $(NIGHTLY)
+nightly: run
+
+clean:
+	-rm $(XPI)
